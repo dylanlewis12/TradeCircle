@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+**/__pycache__/
+*.pyc
+
+# Django stuff:
+*.log
+db.sqlite3
+
+# If you use virtual environments:
+env/
+venv/
+myenv/
+
+# If you store environment variables:
+.env
+
+# OS-specific files:
+.DS_Store
+Thumbs.db
