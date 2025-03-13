@@ -13,6 +13,8 @@ from .serializers import (
     UserRegisterSerializer,
     UserLoginSerializer,
     UserSerializer,
+    UpdateUserSerializer,
+    PasswordSerializer,
 )
 
 User = get_user_model()
@@ -106,3 +108,25 @@ class UserView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])  # Ensures only logged-in users can update
+def update_user(request):
+    user = request.user  # Get the logged-in user
+    serializer = UpdateUserSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "User updated successfully!", "data": serializer.data}, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_password(request):
+    user = request.user #Get the logged-in user
+    serializer = PasswordSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"message": "Password updated successfully!", "data": serializer.data}, status=status.HTTP_200_OK)

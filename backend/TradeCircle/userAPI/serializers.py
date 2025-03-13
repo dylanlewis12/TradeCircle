@@ -35,3 +35,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = ('email', 'username', 'firstname', 'lastname')
 
+class UpdateUserSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = UserModel
+        fields = ['username', 'firstname', 'lastname']  # Specify which fields can be updated
+        extra_kwargs = {'username': {'required': False}}  # Allow partial updates
+
+class PasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = ['password']
+        extra_kwargs = {'password': {'write_only': True}}
