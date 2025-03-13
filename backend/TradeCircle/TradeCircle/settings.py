@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +26,16 @@ SECRET_KEY = "django-insecure-5$ei55i=a(q_l15i)x72!fxf+9jj)uau(v-wg0e71oug=^h)5x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+CORS_ALLOW_ALL_ORIGINS = True 
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000'
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -37,8 +46,32 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "userAPI",
+    "rest_framework",  # Required for Django REST framework
+    "rest_framework_simplejwt",  # For JWT authentication
+    "corsheaders",  # To handle CORS
+    "userAPI.apps.UserAPIConfig",
+    "rest_framework_simplejwt.token_blacklist",
 ]
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # Only authenticated users can access
+    ),
+}
+
+# JWT Settings (Optional: Modify token lifetime)
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -81,6 +114,8 @@ DATABASES = {
     }
 }
 
+# User model
+AUTH_USER_MODEL = 'userAPI.AppUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
