@@ -20,13 +20,15 @@ class AppUserManager(BaseUserManager):
 class AppUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=30)
+    firstname = models.CharField(max_length=50, default='firstname')
+    lastname = models.CharField(max_length=50, default='lastname')
     date_joined = models.DateTimeField(auto_now_add=True)
     is_staff = models.BooleanField(default=False)  # Determines access to admin
     is_active = models.BooleanField(default=True)  # Determines if the user account is active
     is_superuser = models.BooleanField(default=False)  # Determines if the user is a superuser
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'firstname', 'lastname']
 
     objects = AppUserManager()
 

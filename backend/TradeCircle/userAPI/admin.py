@@ -3,6 +3,6 @@ from .models import AppUser
 
 @admin.register(AppUser)
 class AppUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'username', 'date_joined')
+    list_display = ('email', 'username', 'firstname', 'lastname', 'date_joined')
     search_fields = ('email', 'username')
     ordering = ('date_joined',)

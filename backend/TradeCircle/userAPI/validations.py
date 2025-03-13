@@ -3,7 +3,7 @@ from rest_framework.exceptions import ValidationError
 
 def custom_validation(data):
     """Performs custom validation on user data."""
-    required_fields = ['email', 'password']
+    required_fields = ['email','firstname','lastname','password']
 
     # Check for missing required fields
     for field in required_fields:
@@ -30,5 +30,21 @@ def validate_password(password):
     if len(password) < 8:
         return False
     if not re.match(password_format, password):
+        return False
+    return True
+
+def validate_firstname(firstname):
+    firstname_format = r'^[a-zA-Z]+$'
+    if len(firstname) < 1:
+        return False
+    if not re.match(firstname_format, firstname):
+        return False
+    return True
+
+def validate_lastname(lastname):
+    lastname_format = r'^[a-zA-Z]+$'
+    if len(lastname) < 1:
+        return False
+    if not re.match(lastname_format, lastname):
         return False
     return True

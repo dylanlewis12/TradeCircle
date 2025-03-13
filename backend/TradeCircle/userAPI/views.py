@@ -52,6 +52,8 @@ def UserLogin(request):
     data = request.data
     email = data.get("email")
     password = data.get("password")
+    firstname = data.get("firstname")
+    lastname = data.get("lastname")
 
     # Authenticate the user
     user = authenticate(request, username=email, password=password)

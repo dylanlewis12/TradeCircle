@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "corsheaders",  # To handle CORS
     "userAPI.apps.UserAPIConfig",
     "rest_framework_simplejwt.token_blacklist",
+    "userSkills",
 ]
 
 # REST Framework settings
