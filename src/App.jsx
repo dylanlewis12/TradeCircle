@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Marketplace from "./Marketplace";
+import Community from "./Community";
 
 function App() {
   const [activePage, setActivePage] = useState("Home");
@@ -34,10 +35,10 @@ function App() {
           <li>
             <a
               href="#"
-              className={activePage === "Build Connection" ? "active" : ""}
-              onClick={() => setActivePage("Build Connection")}
+              className={activePage === "Community" ? "active" : ""}
+              onClick={() => setActivePage("Community")}
             >
-              Build Connection
+              Community
             </a>
           </li>
           <li>
@@ -75,7 +76,7 @@ function App() {
         {activePage === "Home" && (
           <div>
             <header className="hero">
-              <h1>Trade skills and build connections</h1>
+              <h1>Trade skills and Communitys</h1>
             </header>
             <section className="how-it-works">
               <h2>How It Works</h2>
@@ -90,7 +91,7 @@ function App() {
         )}
         {activePage === "Marketplace" && <Marketplace />}{" "}
         {/* Marketplace Page */}
-        {activePage === "Build Connection" && <h1>Connect with Others</h1>}
+        {activePage === "Community" }
         {activePage === "FAQs" && <h1>Frequently Asked Questions</h1>}
         {activePage === "About Us" && <h1>About Our Platform</h1>}
       </main>
