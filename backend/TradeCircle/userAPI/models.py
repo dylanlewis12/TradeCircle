@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Group, Permission
 from django.conf import settings
 
+#Add field for user profile picture
+
 class AppUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
