@@ -3,6 +3,7 @@ import "./App.css";
 import PostCard from "./components/PostCard";
 import FloatingPlusMenu from "./components/FloatingPlusMenu";
 import "./Community.css";
+import CreatePost from "./components/CreatePost";
 
 const imageUrls = [
   '../../public/sample photos/event 1.png',
@@ -30,13 +31,13 @@ const profiles = [
 function Community() {
   return (
     <div className="communityPage">
-<div className="postGrid">
-  {imageUrls.map((src, index) => (
-    <PostCard key={index} imageSrc={src} username={usernames[index]} profilePic={profiles[index]} />
-  ))}
-</div>
+      <div className="postGrid">
+        {imageUrls.map((src, index) => (
+          <PostCard key={index} imageSrc={src} postUsername={usernames[index]} profilePic={profiles[index]} />
+        ))}
+      </div>
 
-      
+
       <FloatingPlusMenu />
     </div>
   );

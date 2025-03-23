@@ -1,4 +1,3 @@
-/* Floating Button */
 .menuButton {
     position: fixed;
     bottom: 20px;
@@ -13,27 +12,24 @@
     cursor: pointer;
     border: none;
     transition: all 0.3s ease-in-out;
-    box-shadow: 6px 6px 2px 1px rgba(202, 224, 209, 1);  }
-    
-  
-  /* Expanded Menu */
-  .menuButton.expanded {
+    box-shadow: 6px 6px 2px 1px rgba(202, 224, 209, 1);
+}
+
+.menuButton.expanded {
     width: 160px;
     height: 160px;
     border-radius: 100px 100px 0px 100px;
     background-color: #5c8569;
-  }
-  
-  /* Menu Content */
-  .menuContent {
+}
+
+.menuContent {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-  }
-  
-  /* Menu Options */
-  .optionButton {
+}
+
+.optionButton {
     padding: 10px 15px;
     border: none;
     border-radius: 50px;
@@ -48,10 +44,63 @@
     font-size: 14px;
     font-weight: bold;
     transition: background-color 0.2s ease;
-  }
-  
-  /* Hover Effect */
-  .optionButton:hover {
+}
+
+.optionButton:hover {
     background-color: #95c1a4;
-  }
-  
+}
+
+@media (max-width: 1024px) {
+    .menuButton {
+        width: 56px;
+        height: 56px;
+    }
+
+    .menuButton.expanded {
+        width: 140px;
+        height: 140px;
+    }
+
+    .optionButton {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menuButton {
+        width: 50px;
+        height: 50px;
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .menuButton.expanded {
+        width: 120px;
+        height: 120px;
+    }
+
+    .optionButton {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menuButton {
+        width: 45px;
+        height: 45px;
+        bottom: 12px;
+        right: 12px;
+    }
+
+    .menuButton.expanded {
+        width: 100px;
+        height: 100px;
+    }
+
+    .optionButton {
+        font-size: 10px;
+        padding: 6px 8px;
+    }
+}
