@@ -1,0 +1,37 @@
+.communityPage {
+    padding: 20px;
+}
+
+.postGrid {
+    column-count: 4;
+    column-gap: 16px;
+}
+
+.cardContainer {
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: 16px;
+}
+
+/* reducing columns based on screen size*/
+@media (max-width: 1024px) {
+    .postGrid {
+        column-count: 3; 
+    }
+}
+
+@media (max-width: 768px) {
+    .postGrid {
+        column-count: 2; 
+    }
+}
+
+@media (max-width: 480px) {
+    .postGrid {
+        column-count: 1;
+    }
+
+    .communityPage {
+        padding: 10px; 
+    }
+}
