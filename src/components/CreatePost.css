@@ -26,7 +26,7 @@
 .createContainer {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 85%;
 }
 
 .userCreateInfo {
@@ -57,7 +57,6 @@
 }
 
 #postText {
-    width: 100%;
     height: 150px;
     padding: 10px;
     font-size: 16px;
@@ -111,15 +110,23 @@
 
 @media (max-width: 1024px) {
     .createPostCard {
-        width: 80%;
-        height: 80%;
+        width: 70%;
+        height: 70%;
     }
+
+    #postText{
+        height: 300px;
+    }
+
 }
 
 @media (max-width: 768px) {
     .createPostCard {
-        width: 90%;
+        width: 80%;
         height: auto;
+    }
+    .createContainer{
+        height: 350px;
     }
 
     #title {
@@ -128,7 +135,7 @@
 
     #postText {
         font-size: 14px;
-        height: 120px;
+        height: 200px;
     }
 
     .userCreateInfo {
@@ -158,9 +165,13 @@
 
 @media (max-width: 480px) {
     .createPostCard {
-        width: 95%;
+        width: 75%;
         height: auto;
         padding: 15px;
+    }
+
+    .createContainer{
+        height: 300px;
     }
 
     #title {
@@ -169,7 +180,7 @@
 
     #postText {
         font-size: 12px;
-        height: 100px;
+        height: 120px;
     }
 
     .userCreateInfo {
