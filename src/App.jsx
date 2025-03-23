@@ -91,7 +91,7 @@ function App() {
         )}
         {activePage === "Marketplace" && <Marketplace />}{" "}
         {/* Marketplace Page */}
-        {activePage === "Community" }
+        {activePage === "Community" && <Community/> }
         {activePage === "FAQs" && <h1>Frequently Asked Questions</h1>}
         {activePage === "About Us" && <h1>About Our Platform</h1>}
       </main>

@@ -1,0 +1,37 @@
+.cardContainer {
+    width: 256px; /* Fixed width */
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .postImage {
+    width: 100%;
+    height: auto; 
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .profilePic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    
+  }

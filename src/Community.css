@@ -1,0 +1,15 @@
+.communityPage {
+    padding: 20px;
+  }
+  
+  .postGrid {
+    column-count: 4; 
+    column-gap: 16px; 
+  }
+  
+  .cardContainer {
+    width: 100%; 
+    break-inside: avoid;
+    margin-bottom: 16px; 
+  }
+  

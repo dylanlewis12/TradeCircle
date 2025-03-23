@@ -1,6 +1,6 @@
   import { useState } from "react";
   import { RiAddCircleLine, RiImageAddLine, RiHeartsLine } from "react-icons/ri";
-  import "./FloatingPlusMenu.css"; // Import the CSS file
+  import "./FloatingPlusMenu.css"; 
   
   function FloatingPlusMenu() {
     const [isOpen, setIsOpen] = useState(false);

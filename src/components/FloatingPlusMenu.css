@@ -13,7 +13,8 @@
     cursor: pointer;
     border: none;
     transition: all 0.3s ease-in-out;
-  }
+    box-shadow: 6px 6px 2px 1px rgba(202, 224, 209, 1);  }
+    
   
   /* Expanded Menu */
   .menuButton.expanded {
