@@ -1,0 +1,56 @@
+/* Floating Button */
+.menuButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50px 50px 0px 50px;
+    background-color: #7bb18d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Expanded Menu */
+  .menuButton.expanded {
+    width: 160px;
+    height: 160px;
+    border-radius: 100px 100px 0px 100px;
+    background-color: #5c8569;
+  }
+  
+  /* Menu Content */
+  .menuContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Menu Options */
+  .optionButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 75%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Hover Effect */
+  .optionButton:hover {
+    background-color: #95c1a4;
+  }
+  
