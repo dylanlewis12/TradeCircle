@@ -52,7 +52,11 @@ INSTALLED_APPS = [
     "userAPI.apps.UserAPIConfig",
     "rest_framework_simplejwt.token_blacklist",
     "userSkills",
+    "UserChat",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # REST Framework settings
 REST_FRAMEWORK = {

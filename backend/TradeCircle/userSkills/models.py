@@ -10,6 +10,11 @@ class UserSkills(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='skills')
     skill = models.CharField(max_length=50)
     skill_description = models.CharField(max_length=10000)
+    category = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    availability = models.DateField(null=True, blank=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
 
     class Meta:
         unique_together = ('user', 'skill')  # Ensures each user has unique skills but allows duplicates across users
