@@ -2,6 +2,8 @@ from userAPI import views as user_views
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -18,9 +20,14 @@ urlpatterns = [
     path('api/logout/', user_views.UserLogout.as_view(), name='logout'),
     path('api/user/', user_views.UserView.as_view(), name='user'),
     path('api/user/update/', user_views.update_user, name="update"),
+    path('api/user/password/', user_views.update_password, name="password"),
+    #path('api/user/skill')
 
     # JWT token management endpoints
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
