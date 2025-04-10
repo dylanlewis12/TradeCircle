@@ -1,4 +1,7 @@
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from userAPI.models import AppUser
 # going to link messages to group for now, might connect to listing id 
 class ChatGroup(models.Model):
@@ -21,4 +24,3 @@ class Messages(models.Model):
     
     class Meta:
         ordering =  ['-created_at'] 
-    
