@@ -1,0 +1,210 @@
+.createPostOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.createPostCard {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    width: 70%;
+    height: 70%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.createContainer {
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+}
+
+.userCreateInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    gap: 16px;
+    width: 100%;
+}
+
+.postContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+#title {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#postText {
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.createPostIcons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    justify-self: flex-start;
+    background-color: #95c1a4;
+    width: 100%;
+    padding: 10px;
+    position: absolute;
+    bottom: 0px;
+    border-radius: 0px 0px 25px 25px;
+    left: 0px;
+}
+
+.moreActions {
+    display: flex;
+    gap: 12px;
+    color: #f7f7d6;
+    margin-left: 8px;
+}
+
+.send:hover {
+    color: #f87656;
+}
+
+.send {
+    color: #f8ccbb;
+    margin-right: 8px;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+    font-size: 24px;
+}
+
+@media (max-width: 1024px) {
+    .createPostCard {
+        width: 70%;
+        height: 70%;
+    }
+
+    #postText{
+        height: 300px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .createPostCard {
+        width: 80%;
+        height: auto;
+    }
+    .createContainer{
+        height: 350px;
+    }
+
+    #title {
+        font-size: 14px;
+    }
+
+    #postText {
+        font-size: 14px;
+        height: 200px;
+    }
+
+    .userCreateInfo {
+        gap: 12px;
+    }
+
+    .postContent {
+        gap: 12px;
+    }
+
+    .createPostIcons {
+        padding: 8px;
+    }
+
+    .moreActions {
+        gap: 8px;
+    }
+
+    .send {
+        font-size: 14px;
+    }
+
+    .closeButton {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .createPostCard {
+        width: 75%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .createContainer{
+        height: 300px;
+    }
+
+    #title {
+        font-size: 12px;
+    }
+
+    #postText {
+        font-size: 12px;
+        height: 120px;
+    }
+
+    .userCreateInfo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .postContent {
+        gap: 8px;
+    }
+
+    .createPostIcons {
+        padding: 6px;
+    }
+
+    .moreActions {
+        gap: 6px;
+    }
+
+    .send {
+        font-size: 12px;
+    }
+
+    .closeButton {
+        font-size: 18px;
+    }
+}
