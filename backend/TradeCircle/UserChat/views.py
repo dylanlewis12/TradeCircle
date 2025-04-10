@@ -11,5 +11,4 @@ def chat_view(request):
     messages = test_chat.chat_messages.all()
     form = createMessageForm()
     
-
     return render(request, 'test.html', {'messages': messages, 'form': form, 'group_name': test_chat.group_name})
