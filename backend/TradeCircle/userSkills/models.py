@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator # for ratings
+
 
 #Field for email foreign key
 #Field for skill name
@@ -21,3 +23,17 @@ class UserSkills(models.Model):
 
     def __str__(self):
         return f"{self.user.email} - {self.skill} : {self.skill_description}"
+
+
+class UserRating(models.Model):
+    rated_user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='ratings_received')
+    rated_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='ratings_given')
+    
+    rating = models.IntegerField( validators=[MinValueValidator(1), MaxValueValidator(5)])
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('rated_user', 'rated_by')  # prevents duplicate ratings from same user
+
+    def __str__(self):
+        return f'{self.rated_by} rated {self.rated_user}: {self.rating}/5'

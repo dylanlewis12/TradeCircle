@@ -5,16 +5,25 @@
 </head>
 
 <body >
+    <a class='button' href={% url 'private-chat' 'admin' %}> test chat with admin  </a>
+    <a class='button' href={% url 'private-chat' 'jdnorton' %}> test chat with jdnorton  </a>
+
+    <a class='button' href={% url 'find-or-create-comments' '1' %}> comment section 1 </a>
+    
+
+
+    {% comment %} <a class='button' href={% url 'rate-user' 'jdnorton' %}> test user rating  </a> {% endcomment %}
     <div class="block max-w-2xl mx-auto my-10 px-6">
         <div id="chat_window" class="h-[45rem] flex flex-col bg-gray-800 rounded-2xl shadow-xl relative p-6">
-            
+            {% if user2 %}
+            <p>chat with {{user2.username}} started! </p>
 
-           
+           {%endif%}
             <div id="chat_container" class="overflow-y-auto grow">
                 <ul id="chat_messages" class="flex flex-col gap-4 p-4">
                     {% for message in messages reversed %}
                     {% if message.author == user %}
-                    
+                   
                     <li>
                         <div class="flex justify-start">
                             <div class="flex items-end">
@@ -28,7 +37,7 @@
                         </div>
                         <div class="text-sm font-light py-1 ml-10">
                             <span>users messages</span>
-                            <span class="text-white">{{message.author.profile.name}}</span> 
+                            <span class="text-white">{{message.author.profile.name}}</span>
                             <span class="text-gray-400">{{message.author.username}}</span>
                         </div>
                     </li>
@@ -46,7 +55,7 @@
                             </div>
                         </div>
                         <div class="text-sm font-light py-1 ml-10">
-                            <span class="text-white">{{message.author.profile.name}}</span> 
+                            <span class="text-white">{{message.author.profile.name}}</span>
                             <span class="text-gray-400">{{message.author.username}}</span>
                         </div>
                     </li>
@@ -55,12 +64,12 @@
                 </ul>
             </div>
 
-            
+           
             <div class="sticky bottom-0 z-10 p-2 bg-gray-800">
                 <div class="flex items-center rounded-xl px-2 py-2">
                     <form id="chat_message_form"
-                
-                hx-ext="ws" 
+               
+                hx-ext="ws"
                 ws-connect="/ws/chatroom/{{ group_name }}"
                 ws-send="true"
                 hx-on="htmx:afterRequest: alert('Done making a request!')" >
