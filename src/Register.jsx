@@ -9,15 +9,13 @@ const Register = () => {
   const [username, setUsername] = useState(''); 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [firstname, setFirstName] = useState('');
-  const [lastname, setLastName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate(); 
 
   const handleRegister = async (e) => {
     e.preventDefault(); 
 
-    if (!email || !username || !password || !confirmPassword || !firstname || !lastname) {
+    if (!email || !username || !password || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
@@ -91,28 +89,6 @@ const Register = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)} 
             placeholder="Username"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="firstname">First Name:</label>
-          <input
-            type="text"
-            id="firstname"
-            value={firstname}
-            onChange={(e) => setFirstName(e.target.value)} 
-            placeholder="First Name"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="lastname">Last Name:</label>
-          <input
-            type="text"
-            id="lastname"
-            value={lastname}
-            onChange={(e) => setLastName(e.target.value)} 
-            placeholder="Last Name"
             required
           />
         </div>

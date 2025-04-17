@@ -104,6 +104,3 @@ const Login = () => {
 }
 
 export default Login;
-
-
-//edit navigation
