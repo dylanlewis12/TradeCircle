@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "userAPI.apps.UserAPIConfig",
     "rest_framework_simplejwt.token_blacklist",
     "userSkills",
-    "UserChat",
+    "userChat",
 ]
 
 MEDIA_URL = '/media/'
