@@ -28,37 +28,30 @@ function App() {
           </div>
         </nav>
 
-        {/* Routes */}
-        <main className="page-content">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/build" element={<h1>Connect with Others</h1>} />
-            <Route path="/faqs" element={<FAQs />} />
-            <Route path="/about" element={<h1>About Our Platform</h1>} />
-          </Routes>
-        </main>
-      </div>
-  );
-}
-
-function Home() {
-  return (
-    <div>
-      <header className="hero">
-        <h1>Trade skills and build connections</h1>
-      </header>
-      <section className="how-it-works">
-        <h2>How It Works</h2>
-        <div className="features">
-          <FeatureCard icon="globe" title="Browse Skills" />
-          <FeatureCard icon="pencil" title="Post a Skill" />
-          <FeatureCard icon="plus" title="Offer Your Skill" />
-          <FeatureCard icon="trade" title="Trade" />
-        </div>
-      </section>
+      {/* Page Content (Changes Dynamically) */}
+      <main className="page-content">
+        {activePage === "Home" && (
+          <div>
+            <header className="hero">
+              <h1>Trade skills and build connections</h1>
+            </header>
+            <section className="how-it-works">
+              <h2>How It Works</h2>
+              <div className="features">
+                <FeatureCard icon="globe" title="Browse Skills" />
+                <FeatureCard icon="pencil" title="Post a Skill" />
+                <FeatureCard icon="plus" title="Offer Your Skill" />
+                <FeatureCard icon="trade" title="Trade" />
+              </div>
+            </section>
+          </div>
+        )}
+        {activePage === "Marketplace" && <Marketplace />}{" "}
+        {/* Marketplace Page */}
+        {activePage === "Build Connection" && <h1>Connect with Others</h1>}
+        {activePage === "FAQs" && <h1>Frequently Asked Questions</h1>}
+        {activePage === "About Us" && <h1>About Our Platform</h1>}
+      </main>
     </div>
   );
 }
