@@ -12,9 +12,10 @@ class UserSkills(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='skills')
     skill = models.CharField(max_length=50)
     skill_description = models.CharField(max_length=10000)
+    skill_image = models.ImageField(upload_to='skill_pics/', null=True, blank=True)
     category = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
-    availability = models.DateField(null=True, blank=True)
+    availability = models.CharField(max_length=20)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 

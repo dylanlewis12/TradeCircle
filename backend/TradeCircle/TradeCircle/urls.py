@@ -9,6 +9,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from userSkills.views import UserSkillsViewSet
+
+router = DefaultRouter()
+router.register(r'skills', UserSkillsViewSet, basename='userskills')
 
 urlpatterns = [
     # Admin panel
@@ -28,7 +32,8 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     
-    
+    # For posting/editing user skills
+
     #private, comments, ratings messaging
     path('',include('userChat.urls'))
 ]

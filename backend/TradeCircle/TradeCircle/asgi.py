@@ -10,7 +10,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TradeCircle.settings")
 
 django_asgi_app = get_asgi_application()
 
-from userChat import routing  
+from UserChat import routing  
 
 application = ProtocolTypeRouter({
     "http": django_asgi_app,  # Handles HTTP requests
@@ -18,3 +18,4 @@ application = ProtocolTypeRouter({
         URLRouter(routing.websocket_urlpatterns)
     ),
 })
+
