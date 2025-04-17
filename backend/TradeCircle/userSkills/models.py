@@ -14,7 +14,7 @@ class UserSkills(models.Model):
     skill_description = models.CharField(max_length=10000)
     skill_image = models.ImageField(upload_to='skill_pics/', null=True, blank=True)
     category = models.CharField(max_length=100)
-    city = models.CharField(max_length=20)
+    location = models.CharField(max_length=20)
     availability = models.CharField(max_length=20)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

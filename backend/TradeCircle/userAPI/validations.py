@@ -32,19 +32,3 @@ def validate_password(password):
     if not re.match(password_format, password):
         return False
     return True
-
-def validate_firstname(firstname):
-    firstname_format = r'^[a-zA-Z]+$'
-    if len(firstname) < 1:
-        return False
-    if not re.match(firstname_format, firstname):
-        return False
-    return True
-
-def validate_lastname(lastname):
-    lastname_format = r'^[a-zA-Z]+$'
-    if len(lastname) < 1:
-        return False
-    if not re.match(lastname_format, lastname):
-        return False
-    return True

@@ -9,5 +9,5 @@ class SkillSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserSkills
-        fields = ['id', 'user', 'email', 'category', 'city', 'availability', 'skill_description', 'skill']
+        fields = ['id', 'user', 'email', 'category', 'location', 'availability', 'skill_description', 'skill']
         read_only_fields = ['id', 'user', 'email']

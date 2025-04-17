@@ -15,7 +15,9 @@ from .serializers import (
     UserSerializer,
     UpdateUserSerializer,
     PasswordSerializer,
+    CustomTokenObtainPairSerializer,
 )
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 User = get_user_model()
 
@@ -130,3 +132,6 @@ def update_password(request):
     if serializer.is_valid():
         serializer.save()
         return Response({"message": "Password updated successfully!", "data": serializer.data}, status=status.HTTP_200_OK)
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer

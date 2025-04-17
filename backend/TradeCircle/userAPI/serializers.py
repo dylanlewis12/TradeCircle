@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
+#from .serializers import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 #Add serializer for modifying user profile picture
 
@@ -15,8 +17,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user_obj = UserModel.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],
-            firstname=validated_data['firstname'],
-            lastname=validated_data['lastname'],
         )
         user_obj.username = validated_data['username']
         user_obj.profile_picture = validated_data.get('profile_picture')
@@ -36,12 +36,12 @@ class UserLoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
-        fields = ('email', 'username', 'firstname', 'lastname', 'profile_picture')
+        fields = ('email', 'username', 'profile_picture')
 
 class UpdateUserSerializer(serializers.ModelSerializer): 
     class Meta:
         model = UserModel
-        fields = ['username', 'firstname', 'lastname', 'profile_picture']  # Specify which fields can be updated
+        fields = ['username', 'profile_picture']  # Specify which fields can be updated
         # Allow partial updates
         extra_kwargs = {
             'username': {'required': False},
@@ -53,3 +53,11 @@ class PasswordSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = ['password']
         extra_kwargs = {'password': {'write_only': True}}
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username
+        token['email'] = user.email
+        return token
