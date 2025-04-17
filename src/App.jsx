@@ -16,7 +16,7 @@ function App() {
         </div>
         <ul className="nav-links">
           <li>
-            <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
+            <NavLink to="/home" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           </li>
           <li>
             <NavLink to="/marketplace" className={({ isActive }) => isActive ? "active" : ""}>Marketplace</NavLink>
@@ -41,8 +41,8 @@ function App() {
       {/* Page Content */}
       <main className="page-content">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/build" element={<h1>Connect with Others</h1>} />
@@ -54,7 +54,7 @@ function App() {
   );
 }
 
-function HomePage() {
+function Home() {
   return (
     <div>
       <header className="hero">
