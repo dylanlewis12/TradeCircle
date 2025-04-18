@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import Marketplace from "./Marketplace";
@@ -9,36 +9,72 @@ import Community from "./Community";
 import FAQs from "./FAQ";
 
 function App() {
+  const location = useLocation();
+  // This line is hiding navbar on login page (path '/') and the registration page thats the only line that was modify here
+  const showNavbar =
+    location.pathname !== "/" && location.pathname !== "/register";
+
   return (
     <div>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo-container">
-          <img src="/logo.png" alt="TradeCircle Logo" className="logo" />
-        </div>
-        <ul className="nav-links">
-          <li>
-            <NavLink to="/home" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/marketplace" className={({ isActive }) => isActive ? "active" : ""}>Marketplace</NavLink>
-          </li>
-          <li>
-            <NavLink to="/build" className={({ isActive }) => isActive ? "active" : ""}>Build Connection</NavLink>
-          </li>
-          <li>
-            <NavLink to="/faqs" className={({ isActive }) => isActive ? "active" : ""}>FAQs</NavLink>
-          </li>
-          <li>
-            <NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""}>About Us</NavLink>
-          </li>
-        </ul>
-        <div className="icons">
-          <img src="/icons/search.png" alt="Search" className="icon" />
-          <img src="/icons/notification.png" alt="Notification" className="icon" />
-          <img src="/icons/user.png" alt="User" className="icon" />
-        </div>
-      </nav>
+      {/* Conditionally render Navbar */}
+      {showNavbar && (
+        <nav className="navbar">
+          <div className="logo-container">
+            <img src="/logo.png" alt="TradeCircle Logo" className="logo" />
+          </div>
+          <ul className="nav-links">
+            <li>
+              <NavLink
+                to="/home"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/marketplace"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Marketplace
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/build"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Build Connection
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/faqs"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                FAQs
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                About Us
+              </NavLink>
+            </li>
+          </ul>
+          <div className="icons">
+            <img src="/icons/search.png" alt="Search" className="icon" />
+            <img
+              src="/icons/notification.png"
+              alt="Notification"
+              className="icon"
+            />
+            <img src="/icons/user.png" alt="User" className="icon" />
+          </div>
+        </nav>
+      )}
 
       {/* Page Content */}
       <main className="page-content">
