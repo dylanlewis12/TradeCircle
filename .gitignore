@@ -25,3 +25,7 @@ Thumbs.db
 node_modules/
 dist/
 .vite/
+# dependencies
+node_modules/
+package-lock.json
+

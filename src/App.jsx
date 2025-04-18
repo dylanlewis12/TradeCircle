@@ -4,6 +4,8 @@ import "./App.css";
 import Marketplace from "./Marketplace";
 import Login from "./Login";
 import Register from "./Register";
+import Community from "./Community";
+
 import FAQs from "./FAQ";
 
 function App() {
