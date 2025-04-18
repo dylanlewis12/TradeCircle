@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Group, Permission
 from django.conf import settings
 
+#Add field for user profile picture
+
 class AppUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -23,6 +25,7 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(max_length=50, default='firstname')
     lastname = models.CharField(max_length=50, default='lastname')
     date_joined = models.DateTimeField(auto_now_add=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     is_staff = models.BooleanField(default=False)  # Determines access to admin
     is_active = models.BooleanField(default=True)  # Determines if the user account is active
     is_superuser = models.BooleanField(default=False)  # Determines if the user is a superuser

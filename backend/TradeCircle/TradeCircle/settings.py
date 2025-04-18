@@ -40,6 +40,9 @@ CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'daphne',
+     # for websockets ^ must be on top
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -52,7 +55,11 @@ INSTALLED_APPS = [
     "userAPI.apps.UserAPIConfig",
     "rest_framework_simplejwt.token_blacklist",
     "userSkills",
+    "userChat",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # REST Framework settings
 REST_FRAMEWORK = {
@@ -102,9 +109,15 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "TradeCircle.wsgi.application"
+# WSGI_APPLICATION = "TradeCircle.wsgi.application"
+ASGI_APPLICATION = "TradeCircle.asgi.application"
 
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer', # will change to redis once we hit deployment
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -158,3 +171,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

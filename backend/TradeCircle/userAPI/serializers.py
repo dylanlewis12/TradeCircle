@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 
+#Add serializer for modifying user profile picture
+
 UserModel = get_user_model()
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -17,6 +19,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             lastname=validated_data['lastname'],
         )
         user_obj.username = validated_data['username']
+        user_obj.profile_picture = validated_data.get('profile_picture')
         user_obj.save()
         return user_obj
 
@@ -33,13 +36,17 @@ class UserLoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
-        fields = ('email', 'username', 'firstname', 'lastname')
+        fields = ('email', 'username', 'firstname', 'lastname', 'profile_picture')
 
 class UpdateUserSerializer(serializers.ModelSerializer): 
     class Meta:
         model = UserModel
-        fields = ['username', 'firstname', 'lastname']  # Specify which fields can be updated
-        extra_kwargs = {'username': {'required': False}}  # Allow partial updates
+        fields = ['username', 'firstname', 'lastname', 'profile_picture']  # Specify which fields can be updated
+        # Allow partial updates
+        extra_kwargs = {
+            'username': {'required': False},
+            'profile_picture': {'required': False},
+        }  
 
 class PasswordSerializer(serializers.ModelSerializer):
     class Meta:

@@ -3,6 +3,8 @@ import "./App.css";
 import Marketplace from "./Marketplace";
 import Community from "./Community";
 
+import FAQs from "./FAQ";
+
 function App() {
   const [activePage, setActivePage] = useState("Home");
 
@@ -91,8 +93,10 @@ function App() {
         )}
         {activePage === "Marketplace" && <Marketplace />}{" "}
         {/* Marketplace Page */}
-        {activePage === "Community" && <Community/> }
-        {activePage === "FAQs" && <h1>Frequently Asked Questions</h1>}
+{activePage === "Community" && <Community />}
+{activePage === "FAQs" && <FAQs />}
+{activePage === "Build Connection" && <h1>Connect with Others</h1>}
+
         {activePage === "About Us" && <h1>About Our Platform</h1>}
       </main>
     </div>
