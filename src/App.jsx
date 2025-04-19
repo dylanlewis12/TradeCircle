@@ -1,15 +1,18 @@
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
+
 import "./App.css";
 import Marketplace from "./Marketplace";
 import Login from "./Login";
+
 import Register from "./Register";
 import Community from "./Community";
-
 import FAQs from "./FAQ";
+import Messages from "./Message";
 
 function App() {
   const location = useLocation();
+
   // This line is hiding navbar on login page (path '/') and the registration page thats the only line that was modify here
   const showNavbar =
     location.pathname !== "/" && location.pathname !== "/register";
@@ -79,13 +82,16 @@ function App() {
       {/* Page Content */}
       <main className="page-content">
         <Routes>
-          <Route path="/home" element={<Home />} />
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/build" element={<h1>Connect with Others</h1>} />
+          <Route path="/build" element={<Community />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/about" element={<h1>About Our Platform</h1>} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/messages" element={<Messages />} />{" "}
+          {/* ✅ Messages Route */}
         </Routes>
       </main>
     </div>
