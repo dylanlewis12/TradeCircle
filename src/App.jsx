@@ -1,10 +1,11 @@
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
-import { useState } from "react";
+import axiosInstance from "./axios";
+import { useContext, useState } from "react";
+import { AuthContext } from "./AuthContext"; // ✅ use your context!
 
 import "./App.css";
 import Marketplace from "./Marketplace";
 import Login from "./Login";
-
 import Register from "./Register";
 import Community from "./Community";
 import FAQs from "./FAQ";
@@ -13,8 +14,27 @@ import Explore from "./Explore";
 
 function App() {
   const location = useLocation();
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  // This line is hiding navbar on login page (path '/') and the registration page thats the only line that was modify here
+  const { getAccessToken } = useContext(AuthContext); // ✅ use real function
+  
+  const handleViewProfile = async () => {
+    try {
+      const token = await getAccessToken();
+      const response = await axiosInstance.get(`/user/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSelectedUser(response.data.user);
+      setShowProfileModal(true);
+      console.log("User profile data:", response.data);
+      console.log("Profile picture value:", response.data.profile_picture);
+    } catch (error) {
+      console.error("Failed to fetch user profile:", error);
+      setErrorMessage("Could not load user profile.");
+    }
+  };
+
   const showNavbar =
     location.pathname !== "/" && location.pathname !== "/register";
 
@@ -27,63 +47,17 @@ function App() {
             <img src="/logo.png" alt="TradeCircle Logo" className="logo" />
           </div>
           <ul className="nav-links">
-            <li>
-              <NavLink
-                to="/home"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/marketplace"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Marketplace
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/explore"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Explore Skills
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/community"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Community
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/faqs"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                FAQs
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                About Us
-              </NavLink>
-            </li>
+            <li><NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink></li>
+            <li><NavLink to="/marketplace" className={({ isActive }) => (isActive ? "active" : "")}>Marketplace</NavLink></li>
+            <li><NavLink to="/explore" className={({ isActive }) => (isActive ? "active" : "")}>Explore Skills</NavLink></li>
+            <li><NavLink to="/community" className={({ isActive }) => (isActive ? "active" : "")}>Community</NavLink></li>
+            <li><NavLink to="/faqs" className={({ isActive }) => (isActive ? "active" : "")}>FAQs</NavLink></li>
+            <li><NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>About Us</NavLink></li>
           </ul>
           <div className="icons">
             <img src="/icons/search.png" alt="Search" className="icon" />
-            <img
-              src="/icons/notification.png"
-              alt="Notification"
-              className="icon"
-            />
-            <img src="/icons/user.png" alt="User" className="icon" />
+            <img src="/icons/notification.png" alt="Notification" className="icon" />
+            <img src="/icons/user.png" alt="User" className="icon" onClick={handleViewProfile} />
           </div>
         </nav>
       )}
@@ -99,10 +73,30 @@ function App() {
           <Route path="/community" element={<Community />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/about" element={<h1>About Our Platform</h1>} />
-          <Route path="/messages" element={<Messages />} />{" "}
-          {/* ✅ Messages Route */}
+          <Route path="/messages" element={<Messages />} />
         </Routes>
       </main>
+
+      {/* ✅ Profile Modal inside return */}
+      {showProfileModal && selectedUser && (
+        <div className="modal">
+          <div className="modal-content">
+            <img
+              src={selectedUser.profile_picture}
+              alt="Profile"
+              className="image-preview"
+            />
+            <h2>{selectedUser.username}</h2>
+            <br />
+            <p><b>Email: </b>{selectedUser.email}</p>
+            <p><b>Date Joined: </b>{new Date(selectedUser.date_joined).toLocaleDateString()}</p>
+            <br />
+            <button className="close-btn" onClick={() => setShowProfileModal(false)}>
+              <b>Close</b>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,13 +11,14 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .serializers import (
     UserRegisterSerializer,
-    UserLoginSerializer,
+    UserProfileSerializer,
     UserSerializer,
     UpdateUserSerializer,
     PasswordSerializer,
     CustomTokenObtainPairSerializer,
 )
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.generics import RetrieveAPIView
 
 User = get_user_model()
 
@@ -135,3 +136,8 @@ def update_password(request):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+class PublicUserProfileView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]

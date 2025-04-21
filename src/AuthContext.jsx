@@ -11,20 +11,29 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedToken = localStorage.getItem('accessToken');
     console.log("Retrieved Stored Access Token on load:", storedToken);
-
+  
     if (storedToken) {
       setAccessToken(storedToken);
       try {
         const decoded = jwtDecode(storedToken);
         console.log("Decoded Token:", decoded);
-        setUser({ email: decoded.email, username: decoded.username});
-        console.lof(decoded.user.username);
+  
+        // Safely check for required fields before using
+        if (decoded && decoded.username && decoded.email) {
+          setUser({
+            email: decoded.email,
+            username: decoded.username,
+          });
+        } else {
+          console.warn("Decoded token missing expected fields:", decoded);
+        }
+  
       } catch (error) {
         console.error('Invalid token on load:', error);
       }
     }
   }, []);
-
+  
   const getAccessToken = async () => {
     if (!accessToken) {
       console.error("No access token found.");

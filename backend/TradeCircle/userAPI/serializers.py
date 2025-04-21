@@ -39,7 +39,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserModel
-        fields = ('email', 'username', 'profile_picture')
+        fields = ('email', 'username', 'profile_picture', 'date_joined')  # Add this
+
 
 class UpdateUserSerializer(serializers.ModelSerializer): 
     profile_picture = Base64ImageField(required=False)
@@ -66,3 +67,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         token['email'] = user.email
         return token
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = ['username', 'email', 'date_joined', 'profile_picture']

@@ -3,15 +3,21 @@ import "./App.css";
 import { useState, useEffect, useContext, useMemo } from "react";
 import { AuthContext } from "./AuthContext";
 import axiosInstance from "./axios";
+import { useNavigate } from "react-router-dom";
 
 function Explore() {
   const { getAccessToken } = useContext(AuthContext);
   const [skills, setSkills] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showProfileModal, setShowProfileModal] = useState(false); 
+  const navigate = useNavigate();
+
   const [filters, setFilters] = useState({
     category: "",
     location: "",
     availability: "",
   });
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleFilterChange = (e) => {
@@ -51,6 +57,21 @@ function Explore() {
 
     fetchSkills();
   }, [getAccessToken]);
+
+  const handleViewProfile = async (userId) => {
+    try {
+      const token = await getAccessToken();
+      const response = await axiosInstance.get(`/user/profile/${userId}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSelectedUser(response.data);
+      setShowProfileModal(true);
+      console.log("User profile data:", response.data);
+    } catch (error) {
+      console.error("Failed to fetch user profile:", error);
+      setErrorMessage("Could not load user profile.");
+    }
+  };
 
   return (
     <div className="marketplace-container">
@@ -118,11 +139,49 @@ function Explore() {
             <p><strong>Category:</strong> {skill.category}</p>
             <p><strong>Location:</strong> {skill.location}</p>
             <p><strong>Availability:</strong> {skill.availability}</p>
-            <br></br>
+            <br />
             <p><b>{skill.username}</b></p>
+            <br />
+            <div className="card-buttons">
+                <button
+                onClick={() => handleViewProfile(skill.user)}
+                className="profile-btn"
+                >
+                <b>View Profile</b>
+                </button>
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
+                <img
+                    src="/icons/message.png"
+                    alt="Messages"
+                    style={{ width: "30px", height: "30px", cursor: "pointer" }}
+                    onClick={() => navigate("/messages")}
+                />
+                </div>
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Modal for User Profile */}
+      {showProfileModal && selectedUser && (
+        <div className="modal">
+          <div className="modal-content">
+            <img
+              src={selectedUser.profile_picture}
+              alt="Profile"
+              className="image-preview"
+            />
+            <h2>{selectedUser.username}</h2>
+            <br></br>
+            <p><b>Email: </b>{selectedUser.email}</p>
+            <p><b>Date Joined: </b>{new Date(selectedUser.date_joined).toLocaleDateString()}</p>
+            <br></br>
+            <button className="close-btn" onClick={() => setShowProfileModal(false)}>
+              <b>Close</b>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

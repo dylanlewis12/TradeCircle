@@ -194,7 +194,7 @@ function Marketplace() {
     )}
     
     <div className="marketplace-container">
-      <h1>Discover and Exchange Skills</h1>
+      <h1>Create and View Your Skills</h1>
       <br></br><br></br>
       <div className="top-controls">
         <button onClick={openModal} className="post-skill-btn">

@@ -12,6 +12,7 @@ from rest_framework_simplejwt.views import (
 )
 from userSkills.views import UserSkillsViewSet,OtherUsersSkillsView
 from communityPosts.views import CommunityPostListCreate, PostCommentCreate, PostLikeToggle
+from userAPI.views import PublicUserProfileView
 
 router = DefaultRouter()
 router.register(r'skills', UserSkillsViewSet, basename='userskills')
@@ -46,6 +47,9 @@ urlpatterns = [
     path('posts/', CommunityPostListCreate.as_view(), name='community-posts'),
     path('posts/comments/', PostCommentCreate.as_view(), name='post-comment'),
     path('posts/<int:post_id>/like/', PostLikeToggle.as_view(), name='post-like-toggle'),
+
+    #skillprofile
+    path('api/user/profile/<int:pk>/', PublicUserProfileView.as_view(), name='public-user-profile')
 ]
 
 if settings.DEBUG:
