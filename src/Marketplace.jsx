@@ -188,9 +188,11 @@ function Marketplace() {
           <option value="Saturday">Saturday</option>
           <option value="Sunday">Sunday</option>
         </select>
-        <button onClick={() => setFilters({ category: "", location: "", availability: "" })}>
-          Reset Filters
-        </button>
+        <div className="reset">
+          <button onClick={() => setFilters({ category: "", location: "", availability: "" })}><b></b>
+            <b>Reset Filters</b>
+          </button>
+        </div>
       </div>
 
       {/* Skill Cards */}
