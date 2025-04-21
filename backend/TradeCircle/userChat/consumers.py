@@ -10,14 +10,14 @@ class ChatroomConsumer(WebsocketConsumer):
     # function to handle establishing handshake
      def connect(self):
          self.user = self.scope['user']
-         self.chatroom_name = self.scope['url_route']['kwargs']['chatroom_name']
+         self.chatroom_name = self.scope['url_route']['kwargs']['group_name']
          self.chatroom = get_object_or_404(ChatGroup,group_name=self.chatroom_name)
         #  function to create channel so multiple users can chat
          async_to_sync(self.channel_layer.group_add)(
              self.chatroom_name, self.channel_name
          )
          
-         self.accept()
+         self.accept() 
         
         
      def receive(self, text_data):

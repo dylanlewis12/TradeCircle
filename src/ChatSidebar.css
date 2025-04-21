@@ -1,0 +1,14 @@
+.conversation-preview {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.conversation-preview:hover {
+  background-color: #f9f9f9;
+}
+
+.conversation-preview.active {
+  background-color: #e0ffe0;
+  font-weight: bold;
+}

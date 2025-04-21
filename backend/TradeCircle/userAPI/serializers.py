@@ -10,19 +10,26 @@ UserModel = get_user_model()
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     profile_picture = Base64ImageField(required=False)
+
     class Meta:
         model = UserModel
-        fields = '__all__'
+        fields = ['username', 'email', 'password', 'profile_picture']
+
+    def validate_username(self, value):
+        if UserModel.objects.filter(username=value).exists():
+            raise serializers.ValidationError("This username is already taken.")
+        return value
 
     def create(self, validated_data):
-        user_obj = UserModel.objects.create_user(
+        user = UserModel.objects.create_user(
+            username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
         )
-        user_obj.username = validated_data['username']
-        user_obj.profile_picture = validated_data.get('profile_picture')
-        user_obj.save()
-        return user_obj
+        if 'profile_picture' in validated_data:
+            user.profile_picture = validated_data['profile_picture']
+        user.save()
+        return user
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()

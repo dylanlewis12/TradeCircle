@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
             email: decoded.email,
             username: decoded.username,
           });
+          localStorage.setItem("username", decoded.username); // ✅ ADD THIS LINE HERE
         } else {
           console.warn("Decoded token missing expected fields:", decoded);
         }
@@ -71,6 +72,7 @@ const AuthProvider = ({ children }) => {
     setAccessToken(token);
     localStorage.setItem('accessToken', token);
     localStorage.setItem('refreshToken', refreshToken); // Save refresh token
+
     console.log('User logged in:', userData, 'AccessToken:', token, 'RefreshToken:', refreshToken);
   };
 
@@ -80,6 +82,7 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('email');
+    localStorage.removeItem('username');
     console.log('User logged out');
   };
 

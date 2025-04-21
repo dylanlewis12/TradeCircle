@@ -9,8 +9,10 @@ import Login from "./Login";
 import Register from "./Register";
 import Community from "./Community";
 import FAQs from "./FAQ";
-import Messages from "./Message";
+//import Messages from "./Message";
 import Explore from "./Explore";
+//import ChatSidebar from "./ChatSidebar";
+import ChatRoomLayout from "./ChatRoomLayout";
 
 function App() {
   const location = useLocation();
@@ -53,6 +55,7 @@ function App() {
             <li><NavLink to="/community" className={({ isActive }) => (isActive ? "active" : "")}>Community</NavLink></li>
             <li><NavLink to="/faqs" className={({ isActive }) => (isActive ? "active" : "")}>FAQs</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>About Us</NavLink></li>
+            <li><NavLink to="/messages/:groupName" className={({ isActive }) => (isActive ? "active" : "")}>Messages</NavLink></li>
           </ul>
           <div className="icons">
             <img src="/icons/search.png" alt="Search" className="icon" />
@@ -73,7 +76,7 @@ function App() {
           <Route path="/community" element={<Community />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/about" element={<h1>About Our Platform</h1>} />
-          <Route path="/messages" element={<Messages />} />
+          <Route path="/messages/:groupName" element={<ChatRoomLayout />} />
         </Routes>
       </main>
 

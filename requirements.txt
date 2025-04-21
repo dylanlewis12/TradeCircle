@@ -13,3 +13,4 @@ Pillow
 corsheaders
 psycopg2-binary
 drf-extra-fields==3.7.0
+shortuuid==1.0.13

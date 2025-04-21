@@ -55,11 +55,20 @@ const Register = () => {
       localStorage.setItem("email", email);
       navigate("/home");
     } catch (error) {
+      let errorMessage = "Registration failed. Try again.";
+    
+      if (error.response?.data?.username) {
+        errorMessage = error.response.data.username[0]; // Custom validation error from backend
+      } else if (error.response?.data?.email) {
+        errorMessage = error.response.data.email[0]; // Add this if you’re checking email too
+      } else if (error.response?.data?.detail) {
+        errorMessage = error.response.data.detail;
+      }
+    
+      setErrorMsg(errorMessage);
+      setError(errorMessage); // If you're tracking error in both setError and setErrorMsg
+    
       console.error("Registration failed:", error);
-      const errorMessage =
-        error.response?.data?.detail ||
-        "Invalid credentials. Please try again.";
-      setError(errorMessage);
     }
   };
 

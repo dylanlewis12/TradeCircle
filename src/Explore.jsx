@@ -143,20 +143,33 @@ function Explore() {
             <p><b>{skill.username}</b></p>
             <br />
             <div className="card-buttons">
-                <button
+              <button
                 onClick={() => handleViewProfile(skill.user)}
                 className="profile-btn"
-                >
+              >
                 <b>View Profile</b>
-                </button>
-                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
+              </button>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
                 <img
-                    src="/icons/message.png"
-                    alt="Messages"
-                    style={{ width: "30px", height: "30px", cursor: "pointer" }}
-                    onClick={() => navigate("/messages")}
+                  src="/icons/message.png"
+                  alt="Messages"
+                  style={{ width: "30px", height: "30px", cursor: "pointer" }}
+                  onClick={async () => {
+                    try {
+                      const token = await getAccessToken();
+                      const res = await axiosInstance.get(`/chat/private/${skill.username}/`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                      });
+                      const groupName = res.data.group_name;
+                      const chatPartner = res.data.username; // 👈 capture username
+                      localStorage.setItem("chatPartner", chatPartner);
+                      navigate(`/messages/${groupName}`);
+                    } catch (error) {
+                      console.error("Error starting chat:", error);
+                    }
+                  }}
                 />
-                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -172,10 +185,10 @@ function Explore() {
               className="image-preview"
             />
             <h2>{selectedUser.username}</h2>
-            <br></br>
+            <br />
             <p><b>Email: </b>{selectedUser.email}</p>
             <p><b>Date Joined: </b>{new Date(selectedUser.date_joined).toLocaleDateString()}</p>
-            <br></br>
+            <br />
             <button className="close-btn" onClick={() => setShowProfileModal(false)}>
               <b>Close</b>
             </button>

@@ -41,13 +41,13 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     #private, comments, ratings messaging
-    path('',include('userChat.urls')),
+    path('api/', include('userChat.urls')),
 
     #community
-    path('posts/', CommunityPostListCreate.as_view(), name='community-posts'),
-    path('posts/comments/', PostCommentCreate.as_view(), name='post-comment'),
-    path('posts/<int:post_id>/like/', PostLikeToggle.as_view(), name='post-like-toggle'),
-
+    path('api/posts/', CommunityPostListCreate.as_view(), name='community-posts'),
+    path('api/posts/comments/', PostCommentCreate.as_view(), name='post-comment'),
+    path('api/posts/<int:post_id>/like/', PostLikeToggle.as_view(), name='post-like-toggle'),
+    
     #skillprofile
     path('api/user/profile/<int:pk>/', PublicUserProfileView.as_view(), name='public-user-profile')
 ]

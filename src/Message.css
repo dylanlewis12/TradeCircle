@@ -94,3 +94,31 @@
   border-radius: 20px;
   cursor: pointer;
 }
+
+.messagesWrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.chatList {
+  width: 25%;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.chatArea {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageItem:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.inputArea input:focus {
+  border-color: #4caf50;
+}
+
+
