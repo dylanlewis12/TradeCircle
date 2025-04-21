@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-#from .serializers import CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from drf_extra_fields.fields import Base64ImageField
 
 #Add serializer for modifying user profile picture
 
@@ -9,6 +9,7 @@ UserModel = get_user_model()
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    profile_picture = Base64ImageField(required=False)
     class Meta:
         model = UserModel
         fields = '__all__'
@@ -34,11 +35,15 @@ class UserLoginSerializer(serializers.Serializer):
         return user
 
 class UserSerializer(serializers.ModelSerializer):
+    profile_picture = Base64ImageField(required=False)
+
     class Meta:
         model = UserModel
         fields = ('email', 'username', 'profile_picture')
 
 class UpdateUserSerializer(serializers.ModelSerializer): 
+    profile_picture = Base64ImageField(required=False)
+
     class Meta:
         model = UserModel
         fields = ['username', 'profile_picture']  # Specify which fields can be updated

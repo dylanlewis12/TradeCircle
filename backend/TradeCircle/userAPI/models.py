@@ -21,7 +21,7 @@ class AppUserManager(BaseUserManager):
 
 class AppUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=30)
+    username = models.CharField(max_length=1000)
     date_joined = models.DateTimeField(auto_now_add=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     is_staff = models.BooleanField(default=False)  # Determines access to admin

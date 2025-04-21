@@ -19,9 +19,6 @@ class UserSkills(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
-    class Meta:
-        unique_together = ('user', 'skill')  # Ensures each user has unique skills but allows duplicates across users
-
     def __str__(self):
         return f"{self.user.email} - {self.skill} : {self.skill_description}"
 

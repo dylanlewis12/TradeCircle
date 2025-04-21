@@ -1,12 +1,15 @@
 import "./Marketplace.css";
 import "./App.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import axiosInstance from "./axios";
+import { FaTrash } from 'react-icons/fa';
 
 function Marketplace() {
   const { getAccessToken } = useContext(AuthContext);
+  const [expenses, setExpenses] = useState([]);
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
@@ -40,9 +43,46 @@ function Marketplace() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setNewSkill({ ...newSkill, image: reader.result });
+        setNewSkill({ ...newSkill, skill_image: reader.result });
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDeleteSkill = async (id) => {
+    try {
+      const token = await getAccessToken();
+      if (!token) {
+        setErrorMessage('Authentication required. Please log in again.');
+        return;
+      }
+
+      await axiosInstance.delete(`/skills/${id}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setSkills(prevSkills => prevSkills.filter(skill => skill.id !== id));
+      setErrorMessage('');
+    } catch (error) {
+      console.error("Failed to delete skill:", error.response?.data || error);
+      setErrorMessage("Failed to delete skill. Please try again.");
+    }
+  };
+
+  const fetchExpenses = async () => {
+    try {
+      const token = await getAccessToken();
+      if (!token) {
+        setErrorMessage('Authentication required. Please log in again.');
+        return;
+      }
+      const response = await axiosInstance.get('/expenses/', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setErrorMessage('');
+      setExpenses(response.data);
+    } catch (error) {
+      setErrorMessage('Error fetching expenses');
     }
   };
 
@@ -50,12 +90,17 @@ function Marketplace() {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  const filteredSkills = skills.filter(
-    (skill) =>
-      (filters.category === "" || skill.category === filters.category) &&
-      (filters.location === "" || skill.location === filters.location) &&
-      (filters.availability === "" || skill.availability === filters.availability)
-  );
+  const filteredSkills = useMemo(() => {
+    return skills.filter((skill) => {
+      const matchesCategory =
+        filters.category === "" || skill.category === filters.category;
+      const matchesLocation =
+        filters.location === "" || skill.location === filters.location;
+      const matchesAvailability =
+        filters.availability === "" || skill.availability === filters.availability;
+      return matchesCategory && matchesLocation && matchesAvailability;
+    });
+  }, [skills, filters]);
 
   const handleSubmit = async () => {
     try {
@@ -141,6 +186,9 @@ function Marketplace() {
           <option value="Saturday">Saturday</option>
           <option value="Sunday">Sunday</option>
         </select>
+        <button onClick={() => setFilters({ category: "", location: "", availability: "" })}>
+          Reset Filters
+        </button>
       </div>
 
       <button onClick={openModal} className="post-skill-btn">
@@ -151,14 +199,22 @@ function Marketplace() {
       <div className="skills-grid">
         {filteredSkills.map((skill, index) => (
           <div key={index} className="skill-card">
-            {skill.image && (
-              <img src={skill.image} alt="Skill" className="skill-image" />
-            )}
+            <div className="image-wrapper">
+              {skill.skill_image && (
+                <img src={skill.skill_image} alt="Skill" className="skill-image" />
+              )}
+              <button className="delete-skill" onClick={() => handleDeleteSkill(skill.id)}>
+                <FaTrash />
+              </button>
+            </div>
             <h3>{skill.skill}</h3>
-            <p>{skill.description}</p>
+            <p>{skill.skill_description}</p><br />
             <p><strong>Category:</strong> {skill.category}</p>
             <p><strong>Location:</strong> {skill.location}</p>
             <p><strong>Availability:</strong> {skill.availability}</p>
+            <button className="delete-skill" onClick={() => handleDeleteSkill(skill.id)}>
+              <FaTrash />
+            </button>
           </div>
         ))}
       </div>
@@ -169,8 +225,8 @@ function Marketplace() {
           <div className="modal-content">
             <h2>Post Your Skill</h2>
             <input type="file" accept="image/*" onChange={handleImageUpload} />
-            {newSkill.image && (
-              <img src={newSkill.image} alt="Preview" className="image-preview" />
+            {newSkill.skill_image && (
+              <img src={newSkill.skill_image} alt="Preview" className="image-preview" />
             )}
             <input
               type="text"
@@ -196,6 +252,7 @@ function Marketplace() {
               <option value="Emotional intelligence">Emotional intelligence</option>
               <option value="Critical thinking">Critical Thinking</option>
               <option value="Time management">Time management</option>
+              <option value="Technology">Technology</option>
               <option value="Other">Other</option>
             </select>
             <select name="location" onChange={handleChange}>

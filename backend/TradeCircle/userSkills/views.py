@@ -2,6 +2,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
 from .models import UserSkills
 from .serializers import SkillSerializer
+from rest_framework.generics import ListAPIView
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
@@ -25,3 +26,13 @@ class UserSkillsViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Automatically assign the logged-in user as the owner
         serializer.save(user=self.request.user)
+
+class OtherUsersSkillsView(ListAPIView):
+    """
+    View to list all skills not owned by the current user.
+    """
+    serializer_class = SkillSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return UserSkills.objects.exclude(user=self.request.user)

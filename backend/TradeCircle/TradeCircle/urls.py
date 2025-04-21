@@ -10,7 +10,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from userSkills.views import UserSkillsViewSet
+from userSkills.views import UserSkillsViewSet,OtherUsersSkillsView
 
 router = DefaultRouter()
 router.register(r'skills', UserSkillsViewSet, basename='userskills')
@@ -26,10 +26,11 @@ urlpatterns = [
     path('api/user/', user_views.UserView.as_view(), name='user'),
     path('api/user/update/', user_views.update_user, name="update"),
     path('api/user/password/', user_views.update_password, name="password"),
+    
     #path('api/user/skill')
+    path('skills/others/', OtherUsersSkillsView.as_view(), name='other-skills'),
 
     # JWT token management endpoints
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
