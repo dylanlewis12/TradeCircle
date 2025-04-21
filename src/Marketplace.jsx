@@ -151,7 +151,9 @@ function Marketplace() {
   return (
     <div className="marketplace-container">
       <h1>Discover and Exchange Skills</h1>
-
+      <button onClick={openModal} className="post-skill-btn">
+        Post My Skill
+      </button>
       {/* Filters */}
       <div className="filters">
         <select name="category" onChange={handleFilterChange}>
@@ -190,10 +192,6 @@ function Marketplace() {
           Reset Filters
         </button>
       </div>
-
-      <button onClick={openModal} className="post-skill-btn">
-        Post My Skill
-      </button>
 
       {/* Skill Cards */}
       <div className="skills-grid">
@@ -242,6 +240,7 @@ function Marketplace() {
               value={newSkill.skill_description}
               onChange={handleChange}
             />
+            <button onClick={handleSubmit} className="submit-btn">Post Skill</button>
             <select name="category" onChange={handleChange}>
               <option value="">Select Category</option>
               <option value="Communication">Communication</option>
