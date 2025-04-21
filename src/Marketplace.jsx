@@ -8,10 +8,6 @@ import { FaTrash } from 'react-icons/fa';
 
 function Marketplace() {
   const { getAccessToken } = useContext(AuthContext);
-  const [expenses, setExpenses] = useState([]);
-  const [filteredExpenses, setFilteredExpenses] = useState([]);
-  const navigate = useNavigate();
-
   const [showModal, setShowModal] = useState(false);
   const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState({
@@ -66,23 +62,6 @@ function Marketplace() {
     } catch (error) {
       console.error("Failed to delete skill:", error.response?.data || error);
       setErrorMessage("Failed to delete skill. Please try again.");
-    }
-  };
-
-  const fetchExpenses = async () => {
-    try {
-      const token = await getAccessToken();
-      if (!token) {
-        setErrorMessage('Authentication required. Please log in again.');
-        return;
-      }
-      const response = await axiosInstance.get('/expenses/', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setErrorMessage('');
-      setExpenses(response.data);
-    } catch (error) {
-      setErrorMessage('Error fetching expenses');
     }
   };
 

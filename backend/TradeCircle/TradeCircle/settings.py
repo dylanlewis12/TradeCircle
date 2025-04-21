@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "userSkills",
     "userChat",
+    "communityPosts",
 ]
 
 MEDIA_URL = '/media/'

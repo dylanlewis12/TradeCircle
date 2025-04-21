@@ -11,6 +11,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from userSkills.views import UserSkillsViewSet,OtherUsersSkillsView
+from communityPosts.views import CommunityPostListCreate, PostCommentCreate, PostLikeToggle
 
 router = DefaultRouter()
 router.register(r'skills', UserSkillsViewSet, basename='userskills')
@@ -28,7 +29,7 @@ urlpatterns = [
     path('api/user/password/', user_views.update_password, name="password"),
     
     #path('api/user/skill')
-    path('skills/others/', OtherUsersSkillsView.as_view(), name='other-skills'),
+    path('api/skills/others/', OtherUsersSkillsView.as_view(), name='other-skills'),
 
     # JWT token management endpoints
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -39,9 +40,12 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     #private, comments, ratings messaging
-    path('',include('userChat.urls'))
+    path('',include('userChat.urls')),
 
-
+    #community
+    path('posts/', CommunityPostListCreate.as_view(), name='community-posts'),
+    path('posts/comments/', PostCommentCreate.as_view(), name='post-comment'),
+    path('posts/<int:post_id>/like/', PostLikeToggle.as_view(), name='post-like-toggle'),
 ]
 
 if settings.DEBUG:

@@ -23,7 +23,7 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=1000)
     date_joined = models.DateTimeField(auto_now_add=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True, default="profile_pics/profilePicture.png")
     is_staff = models.BooleanField(default=False)  # Determines access to admin
     is_active = models.BooleanField(default=True)  # Determines if the user account is active
     is_superuser = models.BooleanField(default=False)  # Determines if the user is a superuser

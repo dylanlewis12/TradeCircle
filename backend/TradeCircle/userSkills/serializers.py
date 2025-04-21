@@ -7,12 +7,13 @@ User = get_user_model()
 
 class SkillSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
+    username = username = serializers.CharField(source='user.username', read_only=True)
     skill_image = Base64ImageField(required=False)
 
     class Meta:
         model = UserSkills
         fields = [
-            'id', 'user', 'email',
+            'id', 'user', 'username', 'email',
             'category', 'location', 'availability',
             'skill_description', 'skill', 'skill_image'
         ]

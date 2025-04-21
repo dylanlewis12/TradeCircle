@@ -9,6 +9,7 @@ import Register from "./Register";
 import Community from "./Community";
 import FAQs from "./FAQ";
 import Messages from "./Message";
+import Explore from "./Explore";
 
 function App() {
   const location = useLocation();
@@ -44,10 +45,18 @@ function App() {
             </li>
             <li>
               <NavLink
-                to="/build"
+                to="/explore"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Build Connection
+                Explore Skills
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/community"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Community
               </NavLink>
             </li>
             <li>
@@ -86,10 +95,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/build" element={<Community />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/community" element={<Community />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/about" element={<h1>About Our Platform</h1>} />
-          <Route path="/community" element={<Community />} />
           <Route path="/messages" element={<Messages />} />{" "}
           {/* ✅ Messages Route */}
         </Routes>
