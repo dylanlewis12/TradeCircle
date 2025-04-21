@@ -77,7 +77,7 @@ const Login = () => {
           {error && <p className="error">{error}</p>}
 
           <div className="form-group">
-            <label htmlFor="email">User name or Email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               id="email"
