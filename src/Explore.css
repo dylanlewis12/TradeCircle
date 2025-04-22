@@ -36,3 +36,12 @@
     cursor: pointer;
   }
   
+  .skill-card img {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    object-fit: cover;
+    border-radius: 8px; /* Optional: use 0 for sharp corners */
+    display: block;
+    margin: 0 auto;
+  }

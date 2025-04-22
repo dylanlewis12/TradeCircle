@@ -1,61 +1,67 @@
 from channels.generic.websocket import WebsocketConsumer
 from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
 from asgiref.sync import async_to_sync
-from .models import *
+from .models import ChatGroup, Messages
 import json
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class ChatroomConsumer(WebsocketConsumer):
-    # function to handle establishing handshake
-     def connect(self):
-         self.user = self.scope['user']
-         self.chatroom_name = self.scope['url_route']['kwargs']['group_name']
-         self.chatroom = get_object_or_404(ChatGroup,group_name=self.chatroom_name)
-        #  function to create channel so multiple users can chat
-         async_to_sync(self.channel_layer.group_add)(
-             self.chatroom_name, self.channel_name
-         )
-         
-         self.accept() 
-        
-        
-     def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        body = text_data_json['body']
-        # create message in db
+    def connect(self):
+        self.user = self.scope["user"]
+        self.chatroom_name = self.scope['url_route']['kwargs'].get('group_name')
+
+        try:
+            self.chatroom = ChatGroup.objects.get(group_name=self.chatroom_name)
+        except ChatGroup.DoesNotExist:
+            print(f"❌ ChatGroup not found: {self.chatroom_name}")
+            self.close()
+            return
+
+        async_to_sync(self.channel_layer.group_add)(
+            self.chatroom_name, self.channel_name
+        )
+        self.accept()
+        print(f"✅ [WebSocket] {self.user} joined {self.chatroom_name}")
+
+    def receive(self, text_data):
+        data = json.loads(text_data)
+        body = data.get('body')
+
+        if not body:
+            return  # Ignore empty messages
+
         message = Messages.objects.create(
             body=body,
-            author = self.user,
-            group = self.chatroom
+            author=self.user,
+            group=self.chatroom
         )
-        # create event to handle request to multi user
+
         event = {
             'type': 'message_handler',
-            'message_id':message.id,
+            'message_id': message.id,
         }
-        # event is our context to input to message_handler
+
         async_to_sync(self.channel_layer.group_send)(
             self.chatroom_name, event
         )
-        
-     def message_handler(self,event):
-         message_id = event['message_id']
-         message = Messages.objects.get(id = message_id)
-         context = {
-            'message': message,
-            'user': self.user,
-            'group_name' : message.group   
-        }
-          
-        # send back part of template we want to update
-         html = render_to_string("test_partial.html", context = context)
-         self.send(text_data = html)
-        
-        
-        
-        
-     def disconnect(self,close_code):
-        async_to_sync(self.channel_layer.group_discard)(
-            self.chatroom_name, self.channel_name
-        )
+
+    def message_handler(self, event):
+        message = Messages.objects.get(id=event['message_id'])
+
+        self.send(text_data=json.dumps({
+            "type": "chat_message",
+            "message": {
+                "author": message.author.id,
+                "author_username": message.author.username,
+                "body": message.body,
+                "created_at": message.created_at.isoformat(),
+            }
+        }))
+
+    def disconnect(self, close_code):
+        if hasattr(self, 'chatroom_name'):
+            async_to_sync(self.channel_layer.group_discard)(
+                self.chatroom_name, self.channel_name
+            )

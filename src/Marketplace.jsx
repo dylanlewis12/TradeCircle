@@ -1,7 +1,6 @@
 import "./Marketplace.css";
 import "./App.css";
 import { useState, useEffect, useContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import axiosInstance from "./axios";
 import { FaTrash } from 'react-icons/fa';
@@ -246,7 +245,7 @@ function Marketplace() {
           <div key={index} className="skill-card">
             <div className="image-wrapper">
               {skill.skill_image && (
-                <img src={skill.skill_image} alt="Skill" className="skill-image" />
+                <img src={skill.skill_image} alt="Skill" className="skill-image"/>
               )}
               <button className="delete-skill" onClick={() => handleDeleteSkill(skill.id)}>
                 <FaTrash />

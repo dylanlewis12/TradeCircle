@@ -4,7 +4,7 @@ import Messages from "./Message";
 import { useParams } from "react-router-dom";
 
 function ChatRoomLayout() {
-  const { groupName } = useParams();  // ✅ Get actual value from URL
+  const { groupName } = useParams();  
 
   return (
     <div className="messagesWrapper">

@@ -109,7 +109,7 @@ function Messages({ groupName }) {
         console.error("Failed to load messages:", error);
       }
 
-      const socket = new WebSocket(`ws://localhost:8000/ws/chat/${groupName}/`);
+      const socket = new WebSocket(`ws://localhost:8000/ws/chat/${groupName}/?token=${token}`);
       wsRef.current = socket;
 
       socket.onopen = () => console.log("✅ WebSocket connected");
@@ -133,13 +133,15 @@ function Messages({ groupName }) {
 
   const sendMessage = () => {
     if (input.trim() === "") return;
-    wsRef.current.send(JSON.stringify({ type: "chat_message", message: input }));
+    wsRef.current.send(JSON.stringify({
+      body: input
+    }));
     setInput("");
   };
 
   return (
     <div className="messagesPage">
-      <h2 className="chatTitle">Chat Room: {groupName || "Loading..."}</h2>
+      <h2 className="chatTitle">ChatRoom: {localStorage.getItem('chatPartner') || groupName}</h2>
       <div className="messageList">
         {messages.map((msg, index) => (
           <div

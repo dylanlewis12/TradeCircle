@@ -65,7 +65,6 @@ const Register = () => {
         errorMessage = error.response.data.detail;
       }
     
-      setErrorMsg(errorMessage);
       setError(errorMessage); // If you're tracking error in both setError and setErrorMsg
     
       console.error("Registration failed:", error);

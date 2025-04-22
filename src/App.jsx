@@ -1,25 +1,26 @@
-import { Routes, Route, NavLink, useLocation } from "react-router-dom";
+import { Routes, Route, NavLink, useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "./axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "./AuthContext"; // ✅ use your context!
-
 import "./App.css";
 import Marketplace from "./Marketplace";
 import Login from "./Login";
 import Register from "./Register";
 import Community from "./Community";
 import FAQs from "./FAQ";
-//import Messages from "./Message";
 import Explore from "./Explore";
-//import ChatSidebar from "./ChatSidebar";
 import ChatRoomLayout from "./ChatRoomLayout";
+import LogoutButton from "./Logout";
 
 function App() {
   const location = useLocation();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const navigate = useNavigate();
+  
+  const { logout } = useContext(AuthContext);
 
-  const { getAccessToken } = useContext(AuthContext); // ✅ use real function
+  const { getAccessToken } = useContext(AuthContext); 
   
   const handleViewProfile = async () => {
     try {
@@ -39,7 +40,7 @@ function App() {
 
   const showNavbar =
     location.pathname !== "/" && location.pathname !== "/register";
-
+  
   return (
     <div>
       {/* Conditionally render Navbar */}
@@ -85,9 +86,10 @@ function App() {
         <div className="modal">
           <div className="modal-content">
             <img
-              src={selectedUser.profile_picture}
+              src={`http://localhost:8000${selectedUser.profile_picture}`}
               alt="Profile"
-              className="image-preview"
+              className="profile-picture"
+              style={{ width: "150px", height: "150px", borderRadius: "50%" }} // Customize size
             />
             <h2>{selectedUser.username}</h2>
             <br />
@@ -97,6 +99,7 @@ function App() {
             <button className="close-btn" onClick={() => setShowProfileModal(false)}>
               <b>Close</b>
             </button>
+            <LogoutButton onLogoutComplete={() => setShowProfileModal(false)} />
           </div>
         </div>
       )}

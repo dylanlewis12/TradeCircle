@@ -132,7 +132,7 @@ function Explore() {
         {filteredSkills.map((skill, index) => (
           <div key={index} className="skill-card">
             {skill.skill_image && (
-              <img src={skill.skill_image} alt="Skill" className="skill-image" />
+              <img src={skill.skill_image} alt="Skill" className="skill-image"/>
             )}
             <h3>{skill.skill}</h3>
             <p>{skill.skill_description}</p><br />

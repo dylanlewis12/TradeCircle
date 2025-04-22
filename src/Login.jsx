@@ -98,9 +98,6 @@ const Login = () => {
               placeholder=""
               required
             />
-            <div className="forgot-link">
-              <a href="/forgot-password">Forgot Password?</a>
-            </div>
           </div>
 
           <button className="login-button" type="submit" disabled={loading}>
