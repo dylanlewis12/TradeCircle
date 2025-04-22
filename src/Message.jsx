@@ -1,78 +1,3 @@
-/*
-import React, { useState } from "react";
-import "./Message.css";
-
-function Messages() {
-  const [messages, setMessages] = useState([
-    {
-      from: "kero",
-      text: "Hey, want to trade photography skills?",
-      type: "received",
-      time: "10:02 AM",
-    },
-    {
-      from: "me",
-      text: "Sure! What are you offering?",
-      type: "sent",
-      time: "10:05 AM",
-    },
-  ]);
-
-  const [input, setInput] = useState("");
-
-  const handleSend = () => {
-    if (input.trim() === "") return;
-
-    const newMessage = {
-      from: "me",
-      text: input,
-      type: "sent",
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
-
-    setMessages([...messages, newMessage]);
-    setInput("");
-  };
-
-  return (
-    <div className="messagesPage">
-      <h2 className="chatTitle">Chat with Kero</h2>
-      <div className="messageList">
-        {messages.map((msg, index) => (
-          <div key={index} className={`messageRow ${msg.type}`}>
-            {msg.type === "received" && (
-              <img src="/icons/user.png" alt="Avatar" className="avatar" />
-            )}
-            <div className={`messageItem ${msg.type}`}>
-              <p>{msg.text}</p>
-              <span className="timestamp">{msg.time}</span>
-            </div>
-            {msg.type === "sent" && (
-              <img src="/icons/user.png" alt="Avatar" className="avatar" />
-            )}
-          </div>
-        ))}
-      </div>
-
-      <div className="inputArea">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-        <button onClick={handleSend}>Send</button>
-      </div>
-    </div>
-  );
-}
-
-export default Messages;
-*/
 import React, { useEffect, useState, useRef, useContext } from "react";
 import axiosInstance from "./axios";
 import { AuthContext } from "./AuthContext";
@@ -98,7 +23,10 @@ function Messages({ groupName }) {
         console.error("No valid token found");
         return;
       }
+
       const decoded = jwtDecode(token);
+      setCurrentUserId(decoded.user_id);
+
       try {
         const res = await axiosInstance.get(`/chat/messages/${groupName}/`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -117,7 +45,6 @@ function Messages({ groupName }) {
       socket.onerror = (e) => console.error("⚠️ WebSocket error", e);
 
       socket.onmessage = (event) => {
-        console.log("📥 Message from server:", event.data);
         const data = JSON.parse(event.data);
         if (data.type === "chat_message") {
           setMessages((prev) => [...prev, data.message]);
@@ -143,23 +70,23 @@ function Messages({ groupName }) {
     <div className="messagesPage">
       <h2 className="chatTitle">ChatRoom: {localStorage.getItem('chatPartner') || groupName}</h2>
       <div className="messageList">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`messageRow ${msg.author === currentUserId ? "sent" : "received"}`}
-          >
-            {msg.author !== currentUserId && (
-              <img src="/icons/user.png" alt="avatar" className="avatar" />
-            )}
-            <div className={`messageItem ${msg.author === currentUserId ? "sent" : "received"}`}>
-              <p><b>{msg.author_username}</b>: {msg.body}</p>
-              <span className="timestamp">{new Date(msg.created_at).toLocaleTimeString()}</span>
+        {messages.map((msg, index) => {
+          const isSentByUser = msg.author === currentUserId;
+          return (
+            <div key={index} className={`messageRow ${isSentByUser ? "sent" : "received"}`}>
+              {!isSentByUser && (
+                <img src="/icons/user.png" alt="avatar" className="avatar" />
+              )}
+              <div className={`messageItem ${isSentByUser ? "sent" : "received"}`}>
+                <p><b>{msg.author_username}</b>: {msg.body}</p>
+                <span className="timestamp">{new Date(msg.created_at).toLocaleTimeString()}</span>
+              </div>
+              {isSentByUser && (
+                <img src="/icons/user.png" alt="avatar" className="avatar" />
+              )}
             </div>
-            {msg.author === currentUserId && (
-              <img src="/icons/user.png" alt="avatar" className="avatar" />
-            )}
-          </div>
-        ))}
+          );
+        })}
         <div ref={chatEndRef} />
       </div>
 
