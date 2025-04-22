@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserSkills
+from .models import UserSkills, UserRating
 from django.contrib.auth import get_user_model
 from drf_extra_fields.fields import Base64ImageField
 
@@ -18,3 +18,10 @@ class SkillSerializer(serializers.ModelSerializer):
             'skill_description', 'skill', 'skill_image'
         ]
         read_only_fields = ['id', 'user', 'email']
+
+
+class UserRatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserRating
+        fields = ['rated_user', 'rated_by', 'rating', 'created_at']
+        read_only_fields = ['rated_by']

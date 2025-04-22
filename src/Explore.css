@@ -8,6 +8,16 @@
     cursor: pointer;
     width: 8p0px;
 }
+.rate-btn{
+  background-color: #2e7d32;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 8p0px;
+}
 
 .card-buttons {
     display: flex;

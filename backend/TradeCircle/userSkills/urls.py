@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 
-# urlpatterns = [
-#     path('create-rating/<username>',createRating,name="create-rating"),
-   
-# ]
+urlpatterns = [
+    path('ratings/<int:user_id>/', GetUserRatingView.as_view(), name='get-rating'),
+    path('ratings/submit/',   SubmitRatingView.as_view(), name='submit-rating'),
+]

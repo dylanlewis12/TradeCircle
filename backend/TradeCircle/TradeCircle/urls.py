@@ -49,7 +49,9 @@ urlpatterns = [
     path('api/posts/<int:post_id>/like/', PostLikeToggle.as_view(), name='post-like-toggle'),
     
     #skillprofile
-    path('api/user/profile/<int:pk>/', PublicUserProfileView.as_view(), name='public-user-profile')
+    path('api/user/profile/<int:pk>/', PublicUserProfileView.as_view(), name='public-user-profile'),
+    # rating
+    path('api/', include('userSkills.urls'))
 ]
 
 if settings.DEBUG:
