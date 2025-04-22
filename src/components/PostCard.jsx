@@ -1,4 +1,3 @@
-/*
 import React from 'react';
 import { RiHeartAdd2Line, RiMessageLine } from "react-icons/ri";
 import "./PostCard.css";
@@ -21,7 +20,9 @@ function PostCard({ imageSrc, postUsername, profilePic }) {
 }
 
 export default PostCard;
-*/
+
+
+/*
 import React from 'react';
 import { RiHeartAdd2Line, RiMessageLine } from "react-icons/ri";
 import "./PostCard.css";
@@ -47,3 +48,4 @@ function PostCard({ imageSrc, postUsername, profilePic, likesCount, commentsCoun
 }
 
 export default PostCard;
+*/

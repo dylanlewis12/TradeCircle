@@ -1,4 +1,3 @@
-/*
 import { useState } from "react";
 import { RiAddCircleLine, RiImageAddLine, RiHeartsLine } from "react-icons/ri";
 import "./FloatingPlusMenu.css"; 
@@ -43,7 +42,9 @@ function FloatingPlusMenu() {
 }
 
 export default FloatingPlusMenu;
-*/
+
+
+/*
 import { useState } from "react";
 import { RiAddCircleLine, RiImageAddLine, RiHeartsLine } from "react-icons/ri";
 import "./FloatingPlusMenu.css"; 
@@ -55,7 +56,7 @@ function FloatingPlusMenu() {
 
   return (
     <>
-      {/* Main floating button */}
+      {}
       <div className="menuButtonContainer">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -64,7 +65,7 @@ function FloatingPlusMenu() {
           <RiAddCircleLine size={40} color="white" />
         </button>
 
-        {/* Floating menu (placed next to, not inside the button) */}
+        {}
         {isOpen && (
           <div className="menuContent">
             <button
@@ -82,7 +83,7 @@ function FloatingPlusMenu() {
         )}
       </div>
 
-      {/* Post creation modal */}
+      {}
       {showCreatePost && (
         <CreatePost
           createPostUsername={"womp"}
@@ -94,4 +95,4 @@ function FloatingPlusMenu() {
 }
 
 export default FloatingPlusMenu;
-
+*/

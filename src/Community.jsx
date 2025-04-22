@@ -1,4 +1,3 @@
-/*
 import { React } from "react";
 import { useNavigate } from "react-router-dom"; // ✅ Needed for navigation
 import "./App.css";
@@ -60,7 +59,8 @@ function Community() {
 }
 
 export default Community;
-*/
+
+/*
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "./axios";
@@ -127,3 +127,4 @@ function Community() {
 }
 
 export default Community;
+*/
