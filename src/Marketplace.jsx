@@ -251,8 +251,8 @@ function Marketplace() {
                 <FaTrash />
               </button>
             </div>
-            <h3>{skill.skill}</h3>
-            <p>{skill.skill_description}</p><br />
+            <h3><b>Skill: </b>{skill.skill}</h3><br></br>
+            <p><b>Description: </b>{skill.skill_description}</p>
             <p><strong>Category:</strong> {skill.category}</p>
             <p><strong>Location:</strong> {skill.location}</p>
             <p><strong>Availability:</strong> {skill.availability}</p>

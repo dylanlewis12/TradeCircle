@@ -118,17 +118,39 @@ function Explore() {
 
       <div className="top-controls">
         <div className="filters">
-          <select name="category" onChange={handleFilterChange} value={filters.category}>
+        <select name="category" onChange={handleFilterChange}>
             <option value="">Category</option>
-            {/* ...options... */}
+            <option value="Communication">Communication</option>
+            <option value="Leadership">Leadership</option>
+            <option value="Adaptability">Adaptability</option>
+            <option value="Creativity">Creativity</option>
+            <option value="Problem solving">Problem solving</option>
+            <option value="Emotional intelligence">Emotional intelligence</option>
+            <option value="Critical thinking">Critical Thinking</option>
+            <option value="Time management">Time management</option>
+            <option value="Technology">Technology</option>
+            <option value="Other">Other</option>
           </select>
-          <select name="location" onChange={handleFilterChange} value={filters.location}>
+          <select name="location" onChange={handleFilterChange}>
             <option value="">Location</option>
-            {/* ...options... */}
+            <option value="New York">New York</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Texas">Texas</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Florida">Florida</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Arizona">Arizona</option>
+            <option value="Alaska">Alaska</option>
           </select>
-          <select name="availability" onChange={handleFilterChange} value={filters.availability}>
+          <select name="availability" onChange={handleFilterChange}>
             <option value="">Availability</option>
-            {/* ...options... */}
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
           </select>
           <button
             className="reset-filters-btn"
@@ -151,8 +173,8 @@ function Explore() {
                 className="skill-image"
               />
             )}
-            <h3>{skill.skill}</h3>
-            <p>{skill.skill_description}</p>
+            <h3>Skill: {skill.skill}</h3>
+            <p><b>Description: </b>{skill.skill_description}</p>
             <p>
               <strong>Category:</strong> {skill.category}
             </p>
@@ -163,7 +185,7 @@ function Explore() {
               <strong>Availability:</strong> {skill.availability}
             </p>
             <p>
-              <strong>By:</strong> {skill.username}
+              <strong><b>Created By:</b></strong> {skill.username}
             </p>
             <div className="card-buttons">
               <button
@@ -176,6 +198,7 @@ function Explore() {
                 src="/icons/message.png"
                 alt="Message"
                 className="message-icon"
+                style={{ width: "55px", height: "55px", cursor: "pointer", marginLeft: "50px" }}
                 onClick={async () => {
                   try {
                     const token = await getAccessToken();
@@ -206,7 +229,9 @@ function Explore() {
               alt="Profile"
               className="image-preview"
             />
+            <br></br>
             <h2>{selectedUser.username}</h2>
+            <br></br>
             <p>
               <b>Email:</b> {selectedUser.email}
             </p>
@@ -222,6 +247,7 @@ function Explore() {
               <b>Your Rating:</b>{" "}
               {myRating !== null ? `${myRating}/5` : "—"}
             </p>
+            <br></br>
             <div className="modal-buttons">
               <button
                 className="rate-btn"

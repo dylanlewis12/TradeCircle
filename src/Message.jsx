@@ -66,9 +66,15 @@ function Messages({ groupName }) {
     setInput("");
   };
 
+  const handleRecipient = () => {
+    const recipient = localStorage.getItem('chatPartner');
+    return recipient ? recipient : '';
+  };
+  console.log(localStorage.getItem('chatPartner'));
+
   return (
     <div className="messagesPage">
-      <h2 className="chatTitle">ChatRoom: {localStorage.getItem('chatPartner') || groupName}</h2>
+      <h2 className="chatTitle">Chat Room: {handleRecipient()}</h2>
       <div className="messageList">
         {messages.map((msg, index) => {
           const isSentByUser = msg.author === currentUserId;
