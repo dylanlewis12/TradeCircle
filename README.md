@@ -112,8 +112,10 @@ TradeCircle/
       …other components
     package.json
   README.md
+```
 
 ### API Endpoints
+
 Base URL: http://localhost:8000/ (adjust with /api/ prefix if configured)
     ```bash
     POST   /auth/login/        # Obtain JWT token
