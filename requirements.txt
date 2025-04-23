@@ -7,10 +7,9 @@ PyJWT==2.9.0
 sqlparse==0.5.3
 typing_extensions==4.12.2
 tzdata==2025.2
-channels
-channels-redis
-Pillow
-corsheaders
-psycopg2-binary
+channels==4.2.2
+channels-redis==4.2.1
+Pillow==11.2.1
+psycopg2-binary==2.9.6; sys_platform != "darwin"
 drf-extra-fields==3.7.0
 shortuuid==1.0.13
