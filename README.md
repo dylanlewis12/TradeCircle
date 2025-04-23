@@ -97,6 +97,7 @@ TradeCircle was born from a desire to foster sustainable, community-driven excha
 
 ### Project Structure
 
+```plaintext
 TradeCircle/
   backend/
     myenv/              # Python virtual environment
