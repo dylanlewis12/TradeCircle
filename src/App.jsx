@@ -11,6 +11,7 @@ import FAQs from "./FAQ";
 import Explore from "./Explore";
 import ChatRoomLayout from "./ChatRoomLayout";
 import LogoutButton from "./Logout";
+import AboutUs      from "./AboutUs";
 
 function App() {
   const location = useLocation();
@@ -76,7 +77,7 @@ function App() {
           <Route path="/explore" element={<Explore />} />
           <Route path="/community" element={<Community />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/about" element={<h1>About Our Platform</h1>} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/messages/:groupName" element={<ChatRoomLayout />} />
         </Routes>
       </main>

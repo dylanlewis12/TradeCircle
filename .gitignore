@@ -29,3 +29,4 @@ dist/
 node_modules/
 package-lock.json
 
+backend/TradeCircle/db.sqlite3
