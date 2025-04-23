@@ -98,19 +98,19 @@ TradeCircle was born from a desire to foster sustainable, community-driven excha
 ### Project Structure
 
 TradeCircle/
-├── backend/               # Django project
-│   ├── myenv/             # Python virtual environment
-│   ├── TradeCircle/       # Django app & settings (manage.py here)
-│   └── ...
-├── frontend/              # React + Vite app
-│   ├── node_modules/
-│   ├── public/
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── AboutUs.jsx
-│   │   └── ...
-│   └── package.json
-└── README.md
+  backend/
+    myenv/              # Python virtual environment
+    TradeCircle/        # Django app & settings (contains manage.py)
+    requirements.txt
+  frontend/
+    node_modules/
+    public/
+    src/
+      App.jsx
+      AboutUs.jsx
+      …other components
+    package.json
+  README.md
 
 ### API Endpoints
 Base URL: http://localhost:8000/ (adjust with /api/ prefix if configured)
