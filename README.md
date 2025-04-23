@@ -117,13 +117,14 @@ TradeCircle/
 ### API Endpoints
 
 Base URL: http://localhost:8000/ (adjust with /api/ prefix if configured)
-    ```bash
-    POST   /auth/login/        # Obtain JWT token
-    POST   /auth/register/     # Create a new user
-    GET    /listings/          # Fetch all barter listings
-    POST   /listings/          # Create a new listing
-    GET    /profile/           # Retrieve user profile
-    PUT    /profile/           # Update user profile
+```plaintext
+POST   /auth/login/        # Obtain JWT token
+POST   /auth/register/     # Create a new user
+GET    /listings/          # Fetch all barter listings
+POST   /listings/          # Create a new listing
+GET    /profile/           # Retrieve user profile
+PUT    /profile/           # Update user profile
+```
 
 ### Contributing 
 Contributions are welcome! Please fork the repo, create a feature branch, and open a pull request describing your changes.
