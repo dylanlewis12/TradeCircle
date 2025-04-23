@@ -17,7 +17,7 @@ const AboutUs = () => (
       We noticed a gap in existing online marketplaces: most focus on buying and
       selling with money as the centerpiece. TradeCircle flips that model on its
       head with a barter-based system that lets you trade item-for-item—no cash
-      required. It’s perfect for those on a budget or in transition.
+      required. It's perfect for those on a budget or in transition.
     </p>
 
     <p>
